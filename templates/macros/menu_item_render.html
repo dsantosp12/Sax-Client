@@ -1,0 +1,23 @@
+{% macro generate_li(title) %}
+    {% if title == "Summary" %}
+        <li class="active"><a href="{{ url_for("summary") }}">Summary</a></li>
+    {% else %}
+        <li><a href="{{ url_for("summary") }}">Summary</a></li>
+    {% endif %}
+
+    {% if title == "Devices" %}
+        <li class="active"><a href="{{ url_for("devices") }}">Devices</a></li>
+    {% else %}
+        <li><a href="{{ url_for("devices") }}">Devices</a></li>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro render_menu_item(current) %}
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+        {{ generate_li(current) }}
+    </ul>
+    <ul class="side-nav" id="mobile-menu">
+        <li class="active"><a href="{{ url_for("summary") }}">Summary</a></li>
+    </ul>
+{% endmacro %}
