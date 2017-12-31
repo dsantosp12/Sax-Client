@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Test</p>
+    <div class="container">
+        <h3>Summary   <a id="refresh-summary" href="#"><i class="material-icons" style="font-size: 2rem;">autorenew</i></a></h3>
+        <ul id="summary-item-list" class="collection">
+            <li id="summary-error-display" hidden></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/static/js/short_summary.js"></script>
 {% endblock %}
