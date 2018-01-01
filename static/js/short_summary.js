@@ -12,7 +12,8 @@ function getSummaryAndRenderWith(render) {
                 value.pool,
                 value.ghs_current,
                 value.temp_average,
-                value.fan_average
+                value.fan_average,
+                value.status_code
             )
         });
     }).done(function () {
@@ -33,18 +34,42 @@ function getSummaryAndRenderWith(render) {
 }
 
 function summaryItemRenderfunction(id, deviceName, deviceIP, user, pool,
-                                      ghsCurrent, tempAverage, fanAverage) {
+                                      ghsCurrent, tempAverage, fanAverage,
+                                   statusCode) {
+    var statusIcon = "";
+
+    switch (statusCode) {
+        case INFORMATIONAL:
+            statusIcon = "info";
+            break;
+        case WARNING:
+            statusIcon = "warning";
+            break;
+        case SUCCESS:
+            statusIcon = "done";
+            break;
+        case  ERROR:
+            statusIcon = "do_not_disturb";
+            break;
+        case FATAL:
+            statusIcon = "do_not_disturb";
+            break;
+        default:
+            statusIcon = "";
+            break;
+    }
+
     var template =
     '<li class="collection-item">\
         <div class="row">\
-            <div class="col s4 m4 l4 xl4">\
+            <div class="col s3 m3 l3 xl3">\
                 <span id="device-id" value="' + id + '">\
                 <p id="device-name"><i class="material-icons">developer_board</i>  ' + deviceName + '</p>\
                 <p id="device-ip"><i class="material-icons">settings_ethernet</i>  ' + deviceIP + '</p>\
             </div>\
-            <div class="col s4 m4 l4 xl4">\
-                <p id="user"><i class="material-icons">person</i> '+ user +'</p>\
-                <p id="pool"><i class="material-icons">traffic</i> ' + pool + '</p>\
+            <div class="col s5 m5 l5 xl5">\
+                <p class="hide-on-small-and-down" id="user"><i class="material-icons">person</i> '+ user +'</p>\
+                <p class="hide-on-small-and-down" id="pool"><i class="material-icons">traffic</i> ' + pool + '</p>\
                 <p id="ghs-current"><i class="material-icons">insert_chart</i> ' + ghsCurrent + ' GHS</p>\
             </div>\
             <div class="col s3 m3 l3 xl3">\
@@ -52,7 +77,7 @@ function summaryItemRenderfunction(id, deviceName, deviceIP, user, pool,
                 <p id="fan-average"><i class="material-icons">sync</i> ' + fanAverage + ' RPM</p>\
             </div>\
             <div class="col s1 m1 l1 xl1">\
-                <p id="more"><a href="/device/' + id + '"><i class="material-icons">info</i></a></p>\
+                <p id="status"><a href="/device/' + id + '"><i class="material-icons"> ' + statusIcon + ' </i></a></p>\
             </div>\
         </div>\
     </li>';
