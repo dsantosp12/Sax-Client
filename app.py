@@ -14,6 +14,7 @@ def devices():
     return render_template("devices.html", title="Devices")
 
 
-@app.route('/device/<int:id>')
-def device(id):
-    return
+@app.route('/device/<int:device_id>')
+def device(device_id):
+    return render_template("device_details.html", title="Devices",
+                           device_id=device_id)

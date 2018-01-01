@@ -1,8 +1,8 @@
 function getSummaryAndRenderWith(render) {
     var baseURL = getSaxURL();
-    var shotSummaryURL = baseURL + "/devices/status/short";
+    var shortSummaryURL = baseURL + "/devices/status/short";
 
-    $.getJSON(shotSummaryURL, function (data) {
+    $.getJSON(shortSummaryURL, function (data) {
         $.each(data, function (idx, value) {
             render(
                 value.device.id,
@@ -17,7 +17,8 @@ function getSummaryAndRenderWith(render) {
             )
         });
     }).done(function () {
-        $("#summary-error-display").replaceWith('<li id="summary-error-display" hidden>');
+        $("#summary-error-display").replaceWith(
+            '<li id="summary-error-display" hidden>');
         loadingBarComplete();
     }).fail(function() {
         $("#summary-error-display").replaceWith(
@@ -33,7 +34,7 @@ function getSummaryAndRenderWith(render) {
     });
 }
 
-function summaryItemRenderfunction(id, deviceName, deviceIP, user, pool,
+function summaryItemRender(id, deviceName, deviceIP, user, pool,
                                       ghsCurrent, tempAverage, fanAverage,
                                    statusCode) {
     var statusIcon = "";
@@ -63,7 +64,6 @@ function summaryItemRenderfunction(id, deviceName, deviceIP, user, pool,
     '<li class="collection-item">\
         <div class="row">\
             <div class="col s3 m3 l3 xl3">\
-                <span id="device-id" value="' + id + '">\
                 <p id="device-name"><i class="material-icons">developer_board</i>  ' + deviceName + '</p>\
                 <p id="device-ip"><i class="material-icons">settings_ethernet</i>  ' + deviceIP + '</p>\
             </div>\
@@ -86,11 +86,11 @@ function summaryItemRenderfunction(id, deviceName, deviceIP, user, pool,
 }
 
 $(document).ready(function () {
-    getSummaryAndRenderWith(summaryItemRenderfunction);
+    getSummaryAndRenderWith(summaryItemRender);
 
     $("#refresh-summary").click(function () {
         activateLoadingBar();
         $("#summary-item-list").empty().append('<li id="summary-error-display" hidden>');
-        getSummaryAndRenderWith(summaryItemRenderfunction);
+        getSummaryAndRenderWith(summaryItemRender);
     });
 });

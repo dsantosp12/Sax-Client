@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h3>Device <a id="refresh-device-detail" href="#"><i class="material-icons" style="font-size: 2rem;">autorenew</i></a></h3>
+        <div id="device-detail">
+            <h5 id="device-error-display" hidden></h5>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var deviceID = {{ device_id }};
+    </script>
+    <script type="text/javascript" src="/static/js/device_details.js"></script>
+{% endblock %}
